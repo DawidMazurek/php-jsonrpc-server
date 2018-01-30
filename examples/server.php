@@ -24,12 +24,11 @@ $config->addMapping('sampleMethod', $sampleHandler);
 
 $server = new JsonRpcServer(
     $config,
-    $input,
     new JsonRpcRequestBuilder(
         $jsonSerializer
     )
 );
 
-$response = $server->run();
+$response = $server->run($input);
 
 var_dump($jsonSerializer->serialize($response->getPayload()));

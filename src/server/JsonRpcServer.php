@@ -6,10 +6,8 @@ namespace dmazurek\JsonRpc\server;
 
 use dmazurek\JsonRpc\config\JsonRpcConfig;
 use dmazurek\JsonRpc\error\JsonRpcErrorCodes;
-use dmazurek\JsonRpc\exception\InvalidParams;
 use dmazurek\JsonRpc\exception\InvalidRequest;
-use dmazurek\JsonRpc\exception\MethodNotFoundException;
-use dmazurek\JsonRpc\exception\ParseError;
+use dmazurek\JsonRpc\exception\JsonRpcException;
 use dmazurek\JsonRpc\io\JsonRpcInput;
 use dmazurek\JsonRpc\request\IdentifiedJsonRpcRequest;
 use dmazurek\JsonRpc\request\JsonRpcRequest;
@@ -24,26 +22,22 @@ use Throwable;
 class JsonRpcServer
 {
     private $config;
-    /**
-     * @var JsonRpcInput
-     */
-    private $input;
+
     /**
      * @var JsonRpcRequestBuilder
      */
     private $requestBuilder;
 
-    public function __construct(JsonRpcConfig $config, JsonRpcInput $input, JsonRpcRequestBuilder $requestBuilder)
+    public function __construct(JsonRpcConfig $config, JsonRpcRequestBuilder $requestBuilder)
     {
         $this->config = $config;
-        $this->input = $input;
         $this->requestBuilder = $requestBuilder;
     }
 
-    public function run()
+    public function run(JsonRpcInput $input)
     {
         return $this->handleRequest(
-            $this->input->readFromInput()
+            $input->readFromInput()
         );
     }
 
@@ -57,30 +51,15 @@ class JsonRpcServer
             $handler = $this->config->getMethodHandler($request->getMethod());
             $result = $handler($request);
             return $this->createJsonRpcResponse($request, $result, $error);
-        } catch (MethodNotFoundException $exception) {
+        } catch (JsonRpcException $exception) {
             $error = [
-                'code' => JsonRpcErrorCodes::METHOD_NOT_FOUND,
-                'message' => 'Method not found'
-            ];
-        } catch (ParseError $exception) {
-            $error = [
-                'code' => JsonRpcErrorCodes::PARSE_ERROR,
-                'message' => 'Parse error'
-            ];
-        } catch (InvalidParams $exception) {
-            $error = [
-                'code' => JsonRpcErrorCodes::INVALID_PARAMS,
-                'message' => 'Invalid params'
-            ];
-        } catch (InvalidRequest $exception) {
-            $error = [
-                'code' => JsonRpcErrorCodes::INVALID_REQUEST,
-                'message' => 'Invalid request'
+                'code' => $exception->getCode(),
+                'message' => $exception->getMessage()
             ];
         } catch(Throwable $exception) {
             $error = [
                 'code' => JsonRpcErrorCodes::INTERNAL_ERROR,
-                'message' => 'Internal error'
+                'message' => 'Internal error ' . $exception->getMessage()
             ];
         }
 

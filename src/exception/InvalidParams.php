@@ -4,9 +4,12 @@ declare(strict_types = 1);
 
 namespace dmazurek\JsonRpc\exception;
 
-use Exception;
+use dmazurek\JsonRpc\error\JsonRpcErrorCodes;
 
-class InvalidParams extends Exception
+class InvalidParams extends JsonRpcException
 {
-
+    public function __construct()
+    {
+        parent::__construct("Invalid params", JsonRpcErrorCodes::INVALID_PARAMS);
+    }
 }
