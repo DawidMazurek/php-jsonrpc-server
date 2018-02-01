@@ -14,8 +14,14 @@ include __DIR__ . '/../vendor/autoload.php';
 
 $config = new JsonRpcConfig();
 $input = new InputStream();
-$input = new CustomStringInput('{"jsonrpc":"2.0", "method": "sampleMethod", "params":[], "id":1}');
-$jsonSerializer = new JsonSerializer();
+$input = new CustomStringInput(
+    '{"jsonrpc":"2.0", "method": "sampleMethod", "params":[], "id":1}'
+);
+
+$input = new CustomStringInput(
+    '[{"jsonrpc":"2.0", "method": "sampleMethod", "params":[], "id":1}, {"jsonrpc":"2.0", "method": "sampleMethod", "params":[], "id":2}]'
+);
+
 $sampleHandler =  function(JsonRpcRequest $request) {
     return "called {$request->getMethod()}";
 };
@@ -24,11 +30,9 @@ $config->addMapping('sampleMethod', $sampleHandler);
 
 $server = new JsonRpcServer(
     $config,
-    new JsonRpcRequestBuilder(
-        $jsonSerializer
-    )
+    new JsonRpcRequestBuilder(new JsonSerializer())
 );
 
 $response = $server->run($input);
 
-var_dump($jsonSerializer->serialize($response->getPayload()));
+echo json_encode($response->serialize());

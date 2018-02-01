@@ -5,7 +5,6 @@ declare(strict_types = 1);
 namespace dmazurek\JsonRpc\server;
 
 use dmazurek\JsonRpc\config\JsonRpcConfig;
-use dmazurek\JsonRpc\error\JsonRpcErrorCodes;
 use dmazurek\JsonRpc\exception\InvalidRequest;
 use dmazurek\JsonRpc\exception\JsonRpcException;
 use dmazurek\JsonRpc\io\JsonRpcInput;
@@ -15,9 +14,9 @@ use dmazurek\JsonRpc\request\JsonRpcRequestBuilder;
 use dmazurek\JsonRpc\request\Notification;
 use dmazurek\JsonRpc\response\FailedResponse;
 use dmazurek\JsonRpc\response\JsonRpcResponse;
+use dmazurek\JsonRpc\response\JsonRpcResponseAggregate;
 use dmazurek\JsonRpc\response\NotificationResponse;
 use dmazurek\JsonRpc\response\Response;
-use Throwable;
 
 class JsonRpcServer
 {
@@ -28,8 +27,10 @@ class JsonRpcServer
      */
     private $requestBuilder;
 
-    public function __construct(JsonRpcConfig $config, JsonRpcRequestBuilder $requestBuilder)
-    {
+    public function __construct(
+        JsonRpcConfig $config,
+        JsonRpcRequestBuilder $requestBuilder
+    ) {
         $this->config = $config;
         $this->requestBuilder = $requestBuilder;
     }
@@ -41,29 +42,33 @@ class JsonRpcServer
         );
     }
 
-    private function handleRequest(string $json): JsonRpcResponse
+    private function handleRequest(string $json): JsonRpcResponseAggregate
     {
         $result = null;
         $error = null;
 
-        try {
-            $request = $this->requestBuilder->build($json);
-            $handler = $this->config->getMethodHandler($request->getMethod());
-            $result = $handler($request);
-            return $this->createJsonRpcResponse($request, $result, $error);
-        } catch (JsonRpcException $exception) {
-            $error = [
-                'code' => $exception->getCode(),
-                'message' => $exception->getMessage()
-            ];
-        } catch(Throwable $exception) {
-            $error = [
-                'code' => JsonRpcErrorCodes::INTERNAL_ERROR,
-                'message' => 'Internal error ' . $exception->getMessage()
-            ];
+        $responseAggregate = new JsonRpcResponseAggregate();
+        $requests = $this->requestBuilder->buildFromJson($json);
+
+        foreach ($requests->getAll() as $request) {
+            try {
+                $handler = $this->config->getMethodHandler($request->getMethod());
+                $result = $handler($request);
+                $responseAggregate->addResponse(
+                    $this->createJsonRpcResponse($request, $result, $error)
+                );
+            } catch (JsonRpcException $exception) {
+                $error = [
+                    'code' => $exception->getCode(),
+                    'message' => $exception->getMessage()
+                ];
+                $responseAggregate->addResponse(
+                    $this->createErrorResponse($error)
+                );
+            }
         }
 
-        return $this->createErrorResponse($error);
+        return $responseAggregate;
     }
 
     /**
