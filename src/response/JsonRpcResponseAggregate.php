@@ -13,6 +13,9 @@ class JsonRpcResponseAggregate
 
     public function addResponse(JsonRpcResponse $response)
     {
+        if ($response instanceof NotificationResponse) {
+            return;
+        }
         $this->responses []= $response;
     }
 

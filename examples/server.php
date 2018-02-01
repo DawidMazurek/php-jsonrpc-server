@@ -19,7 +19,7 @@ $input = new CustomStringInput(
 );
 
 $input = new CustomStringInput(
-    '[{"jsonrpc":"2.0", "method": "sampleMethod", "params":[], "id":1}, {"jsonrpc":"2.0", "method": "sampleMethod", "params":[], "id":2}]'
+    '[{"jsonrpc":"2.0", "method": "sampleMethod", "params":[], "id":1}, {"jsonrpc":"2.0", "method": "sampleMethod", "params":[]}]'
 );
 
 $sampleHandler =  function(JsonRpcRequest $request) {
