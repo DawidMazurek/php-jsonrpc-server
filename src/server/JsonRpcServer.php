@@ -7,9 +7,11 @@ namespace dmazurek\JsonRpc\server;
 use dmazurek\JsonRpc\config\JsonRpcConfig;
 use dmazurek\JsonRpc\exception\InvalidRequest;
 use dmazurek\JsonRpc\exception\JsonRpcException;
+use dmazurek\JsonRpc\handler\JsonRpcRequestHandler;
 use dmazurek\JsonRpc\io\JsonRpcInput;
 use dmazurek\JsonRpc\request\IdentifiedJsonRpcRequest;
 use dmazurek\JsonRpc\request\JsonRpcRequest;
+use dmazurek\JsonRpc\request\JsonRpcRequestAggregate;
 use dmazurek\JsonRpc\request\JsonRpcRequestBuilder;
 use dmazurek\JsonRpc\request\Notification;
 use dmazurek\JsonRpc\response\FailedResponse;
@@ -20,26 +22,22 @@ use dmazurek\JsonRpc\response\Response;
 
 class JsonRpcServer
 {
-    private $config;
+    private $handler;
 
     /**
      * @var JsonRpcRequestBuilder
      */
     private $requestBuilder;
 
-    public function __construct(
-        JsonRpcConfig $config,
-        JsonRpcRequestBuilder $requestBuilder
-    ) {
-        $this->config = $config;
-        $this->requestBuilder = $requestBuilder;
+    public function __construct(JsonRpcRequestHandler $handler) {
+        $this->handler = $handler;
     }
 
-    public function run(JsonRpcInput $input)
+    public function run(JsonRpcRequestAggregate $requests)
     {
-        return $this->handleRequest(
-            $input->readFromInput()
-        );
+        foreach ($requests->getAll() as $request) {
+            $this->handler->handle($request);
+        }
     }
 
     private function handleRequest(string $json): JsonRpcResponseAggregate

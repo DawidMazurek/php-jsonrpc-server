@@ -8,5 +8,6 @@ use dmazurek\JsonRpc\request\JsonRpcRequest;
 
 interface JsonRpcRequestHandler
 {
+    public function registerForMethod(string $method, callable $callback);
     public function handle(JsonRpcRequest $request);
 }

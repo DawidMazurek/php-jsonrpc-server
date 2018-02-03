@@ -2,7 +2,9 @@
 
 namespace dmazurek\JsonRpc\io;
 
+use dmazurek\JsonRpc\request\JsonRpcRequestAggregate;
+
 interface JsonRpcInput
 {
-    public function readFromInput(): string;
+    public function getRequest(): JsonRpcRequestAggregate;
 }
