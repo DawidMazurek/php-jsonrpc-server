@@ -6,6 +6,11 @@ namespace dmazurek\JsonRpc\handler;
 
 use dmazurek\JsonRpc\exception\MethodNotFoundException;
 use dmazurek\JsonRpc\request\JsonRpcRequest;
+use dmazurek\JsonRpc\request\Notification;
+use dmazurek\JsonRpc\request\Request;
+use dmazurek\JsonRpc\response\FailedResponse;
+use dmazurek\JsonRpc\response\NotificationResponse;
+use dmazurek\JsonRpc\response\Response;
 use PHPUnit\Framework\TestCase;
 
 class MethodCallableHandlerTest extends TestCase
@@ -47,15 +52,38 @@ class MethodCallableHandlerTest extends TestCase
     /**
      * @test
      */
-    public function throwsExceptionForUnsupportedMethod()
+    public function returnsErrorResponseForUnsupportedMethod()
     {
-        $this->expectException(MethodNotFoundException::class);
-
-        $this->request
-            ->method('getMethod')
-            ->willReturn('unmappedMethod');
+        $request = new Request("2.0", 'sampleMethod', [], 1);
 
         $handler = new MethodCallableHandler();
-        $handler->handle($this->request);
+        $response = $handler->handle($request);
+        $this->assertInstanceOf(FailedResponse::class, $response);
+    }
+
+    /**
+     * @test
+     */
+    public function returnsIdentifiedResponseForIdentifiedRequest()
+    {
+        $request = new Request("2.0", 'sampleMethod', [], 1);
+        $handler = new MethodCallableHandler();
+        $handler->registerForMethod('sampleMethod', $this->callback);
+
+        $response = $handler->handle($request);
+        $this->assertInstanceOf(Response::class, $response);
+    }
+
+    /**
+     * @test
+     */
+    public function returnsEmptyResponseForNotificationRequest()
+    {
+        $request = new Notification("2.0", 'sampleMethod', [], 1);
+        $handler = new MethodCallableHandler();
+        $handler->registerForMethod('sampleMethod', $this->callback);
+
+        $response = $handler->handle($request);
+        $this->assertInstanceOf(NotificationResponse::class, $response);
     }
 }

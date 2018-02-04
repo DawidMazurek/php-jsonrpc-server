@@ -5,7 +5,6 @@ declare(strict_types = 1);
 namespace dmazurek\JsonRpc\server;
 
 use dmazurek\JsonRpc\handler\JsonRpcRequestHandler;
-use dmazurek\JsonRpc\io\JsonRpcInput;
 use dmazurek\JsonRpc\request\JsonRpcRequestAggregate;
 use dmazurek\JsonRpc\request\Request;
 use PHPUnit\Framework\TestCase;
@@ -69,8 +68,18 @@ class JsonRpcServerTest extends TestCase
             2
         ));
 
-
         $server = new JsonRpcServer($this->requestHandler);
         $server->run($this->requests);
+    }
+
+    /**
+     * @test
+     */
+    public function returnsEmptyResponseForEmptyInput()
+    {
+        $server = new JsonRpcServer($this->requestHandler);
+        $this->assertEmpty(
+            $server->run($this->requests)->getAll()
+        );
     }
 }

@@ -6,7 +6,7 @@ namespace dmazurek\JsonRpc\request;
 
 class JsonRpcRequestAggregate
 {
-    private $requests;
+    private $requests = [];
 
     public function addRequest(JsonRpcRequest $request)
     {
