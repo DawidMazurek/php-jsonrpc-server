@@ -17,7 +17,8 @@ class MethodCallableHandler implements JsonRpcRequestHandler
 {
     private $callbacks = [];
 
-    public function registerForMethod(string $method, callable $callback) {
+    public function registerForMethod(string $method, callable $callback)
+    {
         $this->callbacks[$method] = $callback;
     }
 
