@@ -6,7 +6,6 @@ use dmazurek\JsonRpc\handler\MethodCallableHandler;
 use dmazurek\JsonRpc\io\CustomStringInput;
 use dmazurek\JsonRpc\io\InputStream;
 use dmazurek\JsonRpc\io\JsonSerializer;
-use dmazurek\JsonRpc\request\JsonRpcRequest;
 use dmazurek\JsonRpc\request\JsonRpcRequestBuilder;
 use dmazurek\JsonRpc\server\JsonRpcServer;
 

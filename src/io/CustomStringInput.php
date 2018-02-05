@@ -26,11 +26,6 @@ class CustomStringInput implements JsonRpcInput
 
     public function getRequest(): JsonRpcRequestAggregate
     {
-        return $this->requestBuilder->buildFromJson($this->readFromInput());
-    }
-
-    private function readFromInput(): string
-    {
-        return $this->customString;
+        return $this->requestBuilder->buildFromJson($this->customString);
     }
 }

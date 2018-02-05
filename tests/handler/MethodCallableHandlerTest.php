@@ -4,7 +4,6 @@ declare(strict_types = 1);
 
 namespace dmazurek\JsonRpc\handler;
 
-use dmazurek\JsonRpc\exception\MethodNotFoundException;
 use dmazurek\JsonRpc\request\JsonRpcRequest;
 use dmazurek\JsonRpc\request\Notification;
 use dmazurek\JsonRpc\request\Request;
@@ -83,6 +82,18 @@ class MethodCallableHandlerTest extends TestCase
         $handler = new MethodCallableHandler();
         $handler->registerForMethod('sampleMethod', $this->callback);
 
+        $response = $handler->handle($request);
+        $this->assertInstanceOf(NotificationResponse::class, $response);
+    }
+
+    /**
+     * @test
+     */
+    public function returnsErrorResponseForNotificationRequest()
+    {
+        $request = new Notification("2.0", 'nonexistingMethod', []);
+
+        $handler = new MethodCallableHandler();
         $response = $handler->handle($request);
         $this->assertInstanceOf(NotificationResponse::class, $response);
     }
