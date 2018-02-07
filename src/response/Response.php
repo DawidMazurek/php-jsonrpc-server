@@ -19,7 +19,7 @@ class Response implements JsonRpcResponse
      */
     private $requestId;
 
-    public function __construct(string $jsonrpc, int $requestId = null, $result = null)
+    public function __construct(string $jsonrpc, int $requestId, $result)
     {
         $this->jsonrpc = $jsonrpc;
         $this->requestId = $requestId;
