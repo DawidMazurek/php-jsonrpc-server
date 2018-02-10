@@ -5,7 +5,7 @@ declare(strict_types = 1);
 namespace dmazurek\JsonRpc\handler;
 
 use dmazurek\JsonRpc\exception\JsonRpcException;
-use dmazurek\JsonRpc\exception\MethodNotFoundException;
+use dmazurek\JsonRpc\exception\MethodNotFound;
 use dmazurek\JsonRpc\request\JsonRpcRequest;
 use dmazurek\JsonRpc\request\Request;
 use dmazurek\JsonRpc\response\FailedResponse;
@@ -27,7 +27,7 @@ class MethodCallableHandler implements JsonRpcRequestHandler
         try {
             $method = $request->getMethod();
             if (!isset($this->callbacks[$method])) {
-                throw new MethodNotFoundException();
+                throw new MethodNotFound();
             }
             $result = $this->callbacks[$method]($request->getParams());
             return $this->createResponse($request, $result);

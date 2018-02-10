@@ -6,7 +6,7 @@ namespace dmazurek\JsonRpc\exception;
 
 use dmazurek\JsonRpc\error\JsonRpcErrorCodes;
 
-class MethodNotFoundException extends JsonRpcException
+class MethodNotFound extends JsonRpcException
 {
     public function __construct()
     {
