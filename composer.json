@@ -1,5 +1,5 @@
 {
-    "name": "dmazurek/php-jsonrpc-server",
+    "name": "DawidMazurek/php-jsonrpc-server",
     "description": "Simple json-rpc server",
     "type": "library",
     "license": "MIT",
