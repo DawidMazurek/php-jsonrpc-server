@@ -2,11 +2,13 @@
 
 declare(strict_types = 1);
 
-namespace dmazurek\JsonRpc\handler;
+namespace DawidMazurek\JsonRpc\handler;
 
-use dmazurek\JsonRpc\request\JsonRpcRequest;
+use DawidMazurek\JsonRpc\request\JsonRpcRequest;
+use DawidMazurek\JsonRpc\response\JsonRpcResponse;
 
 interface JsonRpcRequestHandler
 {
-    public function handle(JsonRpcRequest $request);
+    public function registerForMethod(string $method, callable $callback);
+    public function handle(JsonRpcRequest $request): JsonRpcResponse;
 }

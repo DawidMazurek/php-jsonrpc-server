@@ -1,8 +1,10 @@
 <?php
 
-namespace dmazurek\JsonRpc\io;
+namespace DawidMazurek\JsonRpc\io;
+
+use DawidMazurek\JsonRpc\request\JsonRpcRequestAggregate;
 
 interface JsonRpcInput
 {
-    public function readFromInput(): string;
+    public function getRequest(): JsonRpcRequestAggregate;
 }

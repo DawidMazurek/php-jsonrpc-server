@@ -2,7 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace dmazurek\JsonRpc\io;
+namespace DawidMazurek\JsonRpc\io;
+
+use DawidMazurek\JsonRpc\request\JsonRpcRequestAggregate;
+use DawidMazurek\JsonRpc\request\JsonRpcRequestBuilder;
 
 class CustomStringInput implements JsonRpcInput
 {
@@ -10,14 +13,19 @@ class CustomStringInput implements JsonRpcInput
      * @var string
      */
     private $customString;
+    /**
+     * @var JsonRpcRequestBuilder
+     */
+    private $requestBuilder;
 
-    public function __construct(string $customString)
+    public function __construct(string $customString, JsonRpcRequestBuilder $requestBuilder)
     {
         $this->customString = $customString;
+        $this->requestBuilder = $requestBuilder;
     }
 
-    public function readFromInput(): string
+    public function getRequest(): JsonRpcRequestAggregate
     {
-        return $this->customString;
+        return $this->requestBuilder->buildFromJson($this->customString);
     }
 }

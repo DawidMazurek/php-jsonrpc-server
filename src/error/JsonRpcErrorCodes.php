@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace dmazurek\JsonRpc\error;
+namespace DawidMazurek\JsonRpc\error;
 
 class JsonRpcErrorCodes
 {

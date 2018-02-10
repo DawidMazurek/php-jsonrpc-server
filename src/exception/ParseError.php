@@ -2,9 +2,9 @@
 
 declare(strict_types = 1);
 
-namespace dmazurek\JsonRpc\exception;
+namespace DawidMazurek\JsonRpc\exception;
 
-use dmazurek\JsonRpc\error\JsonRpcErrorCodes;
+use DawidMazurek\JsonRpc\error\JsonRpcErrorCodes;
 
 class ParseError extends JsonRpcException
 {
