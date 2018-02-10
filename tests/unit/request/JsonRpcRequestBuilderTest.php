@@ -2,9 +2,9 @@
 
 declare(strict_types = 1);
 
-namespace dmazurek\JsonRpc\request;
+namespace DawidMazurek\JsonRpc\request;
 
-use dmazurek\JsonRpc\io\JsonSerializer;
+use DawidMazurek\JsonRpc\io\JsonSerializer;
 use PHPUnit\Framework\TestCase;
 
 class JsonRpcRequestBuilderTest extends TestCase

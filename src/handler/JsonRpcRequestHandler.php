@@ -2,10 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace dmazurek\JsonRpc\handler;
+namespace DawidMazurek\JsonRpc\handler;
 
-use dmazurek\JsonRpc\request\JsonRpcRequest;
-use dmazurek\JsonRpc\response\JsonRpcResponse;
+use DawidMazurek\JsonRpc\request\JsonRpcRequest;
+use DawidMazurek\JsonRpc\response\JsonRpcResponse;
 
 interface JsonRpcRequestHandler
 {

@@ -2,14 +2,14 @@
 
 declare(strict_types = 1);
 
-namespace dmazurek\JsonRpc\handler;
+namespace DawidMazurek\JsonRpc\handler;
 
-use dmazurek\JsonRpc\request\JsonRpcRequest;
-use dmazurek\JsonRpc\request\Notification;
-use dmazurek\JsonRpc\request\Request;
-use dmazurek\JsonRpc\response\FailedResponse;
-use dmazurek\JsonRpc\response\NotificationResponse;
-use dmazurek\JsonRpc\response\Response;
+use DawidMazurek\JsonRpc\request\JsonRpcRequest;
+use DawidMazurek\JsonRpc\request\Notification;
+use DawidMazurek\JsonRpc\request\Request;
+use DawidMazurek\JsonRpc\response\FailedResponse;
+use DawidMazurek\JsonRpc\response\NotificationResponse;
+use DawidMazurek\JsonRpc\response\Response;
 use PHPUnit\Framework\TestCase;
 
 class MethodCallableHandlerTest extends TestCase

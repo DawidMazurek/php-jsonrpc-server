@@ -2,10 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace dmazurek\JsonRpc\io;
+namespace DawidMazurek\JsonRpc\io;
 
-use dmazurek\JsonRpc\request\JsonRpcRequestAggregate;
-use dmazurek\JsonRpc\request\JsonRpcRequestBuilder;
+use DawidMazurek\JsonRpc\request\JsonRpcRequestAggregate;
+use DawidMazurek\JsonRpc\request\JsonRpcRequestBuilder;
 
 class InputStream implements JsonRpcInput
 {

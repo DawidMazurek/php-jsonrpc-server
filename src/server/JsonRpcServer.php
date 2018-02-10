@@ -2,11 +2,11 @@
 
 declare(strict_types = 1);
 
-namespace dmazurek\JsonRpc\server;
+namespace DawidMazurek\JsonRpc\server;
 
-use dmazurek\JsonRpc\handler\JsonRpcRequestHandler;
-use dmazurek\JsonRpc\request\JsonRpcRequestAggregate;
-use dmazurek\JsonRpc\response\JsonRpcResponseAggregate;
+use DawidMazurek\JsonRpc\handler\JsonRpcRequestHandler;
+use DawidMazurek\JsonRpc\request\JsonRpcRequestAggregate;
+use DawidMazurek\JsonRpc\response\JsonRpcResponseAggregate;
 
 class JsonRpcServer
 {

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-use dmazurek\JsonRpc\handler\MethodCallableHandler;
-use dmazurek\JsonRpc\io\CustomStringInput;
-use dmazurek\JsonRpc\io\InputStream;
-use dmazurek\JsonRpc\io\JsonSerializer;
-use dmazurek\JsonRpc\request\JsonRpcRequestBuilder;
-use dmazurek\JsonRpc\server\JsonRpcServer;
+use DawidMazurek\JsonRpc\handler\MethodCallableHandler;
+use DawidMazurek\JsonRpc\io\CustomStringInput;
+use DawidMazurek\JsonRpc\io\InputStream;
+use DawidMazurek\JsonRpc\io\JsonSerializer;
+use DawidMazurek\JsonRpc\request\JsonRpcRequestBuilder;
+use DawidMazurek\JsonRpc\server\JsonRpcServer;
 
 include __DIR__ . '/../vendor/autoload.php';
 $requestBuilder = new JsonRpcRequestBuilder(new JsonSerializer());

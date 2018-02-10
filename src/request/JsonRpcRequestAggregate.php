@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace dmazurek\JsonRpc\request;
+namespace DawidMazurek\JsonRpc\request;
 
 class JsonRpcRequestAggregate
 {

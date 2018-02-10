@@ -2,10 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace dmazurek\JsonRpc\request;
+namespace DawidMazurek\JsonRpc\request;
 
-use dmazurek\JsonRpc\exception\InvalidParams;
-use dmazurek\JsonRpc\io\JsonSerializer;
+use DawidMazurek\JsonRpc\exception\InvalidParams;
+use DawidMazurek\JsonRpc\io\JsonSerializer;
 
 class JsonRpcRequestBuilder
 {
