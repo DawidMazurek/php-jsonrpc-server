@@ -46,7 +46,7 @@ class JsonRpcRequestBuilder
     {
         $requests = new JsonRpcRequestAggregate();
         foreach ($data as $singleRequest) {
-            if (!isset($singleRequest['jsonrpc'], $singleRequest['method'], $singleRequest['params'])) {
+            if (isset($singleRequest['jsonrpc'], $singleRequest['method'], $singleRequest['params'])) {
                 $requests->addRequest($this->createRequest($singleRequest));
             }
         }

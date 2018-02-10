@@ -39,6 +39,7 @@ class JsonRpcRequestBuilderTest extends TestCase
         $builder = new JsonRpcRequestBuilder($this->serializer);
         $requests = $builder->buildFromJson($json);
         $this->assertContainsOnlyInstancesOf(Request::class, $requests->getAll());
+        $this->assertEquals(1, count($requests->getAll()));
     }
 
     /**
@@ -60,6 +61,7 @@ class JsonRpcRequestBuilderTest extends TestCase
         $builder = new JsonRpcRequestBuilder($this->serializer);
         $requests = $builder->buildFromJson($json);
         $this->assertContainsOnlyInstancesOf(Notification::class, $requests->getAll());
+        $this->assertEquals(1, count($requests->getAll()));
     }
 
 
@@ -87,5 +89,6 @@ class JsonRpcRequestBuilderTest extends TestCase
         $builder = new JsonRpcRequestBuilder($this->serializer);
         $requests = $builder->buildFromJson($json);
         $this->assertContainsOnlyInstancesOf(Notification::class, $requests->getAll());
+        $this->assertEquals(2, count($requests->getAll()));
     }
 }
