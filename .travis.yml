@@ -8,11 +8,11 @@ before_script:
 - composer self-update
 - composer require codeclimate/php-test-reporter --dev
 - composer install --prefer-dist --no-interaction
-
-
-after_script:
-- vendor/bin/test-reporter
+- curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+- chmod +x ./cc-test-reporter
+- ./cc-test-reporter before-build
 
 after_script:
 - vendor/bin/test-reporter --stdout > codeclimate.json
 - "curl -X POST -d @codeclimate.json -H 'Content-Type: application/json' -H 'User-Agent: Code Climate (PHP Test Reporter v1.0.1-dev)' https://codeclimate.com/test_reports"
+- ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
