@@ -1,3 +1,17 @@
 # JSON-RPC server
 
-It is draft project to show proof of concept, will be refactored with correct programming methodologies
+Json RPC server compatible with official specification: 
+`http://www.jsonrpc.org/specification`
+
+Installation: 
+```
+composer require DawidMazurek/php-jsonrpc-server
+```
+
+How to use example:
+
+```
+https://github.com/DawidMazurek/php-jsonrpc-server/blob/master/examples/server.php
+
+```
+
