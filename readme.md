@@ -5,7 +5,7 @@ Json RPC server compatible with official specification:
 
 Installation: 
 ```
-composer require DawidMazurek/php-jsonrpc-server
+composer require dawidmazurek/php-jsonrpc-server
 ```
 
 How to use example:
