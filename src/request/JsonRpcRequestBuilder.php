@@ -26,19 +26,29 @@ class JsonRpcRequestBuilder
      */
     public function buildFromJson(string $json): JsonRpcRequestAggregate
     {
-        $requests = new JsonRpcRequestAggregate();
         $data = $this->serializer->unserialize($json);
 
         if (isset($data['jsonrpc'], $data['method'], $data['params'])) {
-            $requests->addRequest($this->createRequest($data));
-            return $requests;
+            return $this->createSingleRequest($data);
         }
 
+        return $this->createMultipleRequests($data);
+    }
+
+    private function createSingleRequest(array $data): JsonRpcRequestAggregate
+    {
+        $requests = new JsonRpcRequestAggregate();
+        $requests->addRequest($this->createRequest($data));
+        return $requests;
+    }
+
+    private function createMultipleRequests(array $data): JsonRpcRequestAggregate
+    {
+        $requests = new JsonRpcRequestAggregate();
         foreach ($data as $singleRequest) {
             if (!isset($singleRequest['jsonrpc'], $singleRequest['method'], $singleRequest['params'])) {
-                throw new InvalidParams();
+                $requests->addRequest($this->createRequest($singleRequest));
             }
-            $requests->addRequest($this->createRequest($singleRequest));
         }
 
         return $requests;
