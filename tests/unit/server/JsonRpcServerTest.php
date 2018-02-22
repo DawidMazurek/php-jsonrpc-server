@@ -7,10 +7,8 @@ namespace DawidMazurek\JsonRpc\server;
 use DawidMazurek\JsonRpc\exception\ParseError;
 use DawidMazurek\JsonRpc\handler\JsonRpcRequestHandler;
 use DawidMazurek\JsonRpc\io\JsonRpcInput;
-use DawidMazurek\JsonRpc\request\JsonRpcRequest;
 use DawidMazurek\JsonRpc\request\JsonRpcRequestAggregate;
 use DawidMazurek\JsonRpc\request\Request;
-use DawidMazurek\JsonRpc\response\FailedResponse;
 use DawidMazurek\JsonRpc\response\JsonRpcResponse;
 use PHPUnit\Framework\TestCase;
 
