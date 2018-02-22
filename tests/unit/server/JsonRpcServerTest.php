@@ -116,7 +116,7 @@ class JsonRpcServerTest extends TestCase
         $server = new JsonRpcServer($this->requestHandler);
 
         $response = $server->run($input)->getAll();
-        //var_dump($response); exit;
+
         $this->assertContainsOnlyInstancesOf(
             JsonRpcResponse::class,
             $response
