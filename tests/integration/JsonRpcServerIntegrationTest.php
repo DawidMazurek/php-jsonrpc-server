@@ -76,6 +76,6 @@ class JsonRpcServerIntegrationTest extends TestCase
             new JsonRpcRequestBuilder(new JsonSerializer())
         );
 
-       return $server->run($input->getRequest());
+        return $server->run($input);
     }
 }

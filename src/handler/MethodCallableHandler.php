@@ -36,6 +36,15 @@ class MethodCallableHandler implements JsonRpcRequestHandler
         }
     }
 
+    public function handleError(JsonRpcException $exception): JsonRpcResponse
+    {
+        return new FailedResponse(
+            "2.0",
+            $exception->getCode(),
+            $exception->getMessage()
+        );
+    }
+
     private function createErrorResponse(JsonRpcRequest $request, JsonRpcException $exception): JsonRpcResponse
     {
         if ($request instanceof Request) {

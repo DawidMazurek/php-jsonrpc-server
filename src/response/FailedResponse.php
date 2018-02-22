@@ -11,7 +11,7 @@ class FailedResponse implements JsonRpcResponse
     private $message;
     private $requestId;
 
-    public function __construct(string $apiVersion, int $errorCode, string $message, int $requestId)
+    public function __construct(string $apiVersion, int $errorCode, string $message, int $requestId = null)
     {
         $this->apiVersion = $apiVersion;
         $this->errorCode = $errorCode;

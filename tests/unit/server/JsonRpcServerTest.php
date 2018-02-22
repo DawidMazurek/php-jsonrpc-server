@@ -4,9 +4,14 @@ declare(strict_types = 1);
 
 namespace DawidMazurek\JsonRpc\server;
 
+use DawidMazurek\JsonRpc\exception\ParseError;
 use DawidMazurek\JsonRpc\handler\JsonRpcRequestHandler;
+use DawidMazurek\JsonRpc\io\JsonRpcInput;
+use DawidMazurek\JsonRpc\request\JsonRpcRequest;
 use DawidMazurek\JsonRpc\request\JsonRpcRequestAggregate;
 use DawidMazurek\JsonRpc\request\Request;
+use DawidMazurek\JsonRpc\response\FailedResponse;
+use DawidMazurek\JsonRpc\response\JsonRpcResponse;
 use PHPUnit\Framework\TestCase;
 
 class JsonRpcServerTest extends TestCase
@@ -42,8 +47,13 @@ class JsonRpcServerTest extends TestCase
             1
         ));
 
+        $input = $this->createMock(JsonRpcInput::class);
+        $input->expects($this->once())
+            ->method('getRequest')
+            ->willReturn($this->requests);
+
         $server = new JsonRpcServer($this->requestHandler);
-        $server->run($this->requests);
+        $server->run($input);
     }
 
 
@@ -68,8 +78,13 @@ class JsonRpcServerTest extends TestCase
             2
         ));
 
+        $input = $this->createMock(JsonRpcInput::class);
+        $input->expects($this->once())
+            ->method('getRequest')
+            ->willReturn($this->requests);
+
         $server = new JsonRpcServer($this->requestHandler);
-        $server->run($this->requests);
+        $server->run($input);
     }
 
     /**
@@ -77,9 +92,39 @@ class JsonRpcServerTest extends TestCase
      */
     public function returnsEmptyResponseForEmptyInput()
     {
+        $input = $this->createMock(JsonRpcInput::class);
+        $input->expects($this->once())
+            ->method('getRequest')
+            ->willReturn($this->requests);
+
         $server = new JsonRpcServer($this->requestHandler);
         $this->assertEmpty(
-            $server->run($this->requests)->getAll()
+            $server->run($input)->getAll()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function handlesExceptionWhileHandlingRequest()
+    {
+        $input = $this->createMock(JsonRpcInput::class);
+        $input->expects($this->once())
+            ->method('getRequest')
+            ->willThrowException(new ParseError());
+
+        $server = new JsonRpcServer($this->requestHandler);
+
+        $response = $server->run($input)->getAll();
+        //var_dump($response); exit;
+        $this->assertContainsOnlyInstancesOf(
+            JsonRpcResponse::class,
+            $response
+        );
+
+        $this->assertEquals(
+            1,
+            count($response)
         );
     }
 }

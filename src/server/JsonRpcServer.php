@@ -4,8 +4,9 @@ declare(strict_types = 1);
 
 namespace DawidMazurek\JsonRpc\server;
 
+use DawidMazurek\JsonRpc\exception\JsonRpcException;
 use DawidMazurek\JsonRpc\handler\JsonRpcRequestHandler;
-use DawidMazurek\JsonRpc\request\JsonRpcRequestAggregate;
+use DawidMazurek\JsonRpc\io\JsonRpcInput;
 use DawidMazurek\JsonRpc\response\JsonRpcResponseAggregate;
 
 class JsonRpcServer
@@ -17,13 +18,19 @@ class JsonRpcServer
         $this->handler = $handler;
     }
 
-    public function run(JsonRpcRequestAggregate $requests): JsonRpcResponseAggregate
+    public function run(JsonRpcInput $input): JsonRpcResponseAggregate
     {
-        $responseAggregate = new JsonRpcResponseAggregate();
+        try {
+            $responseAggregate = new JsonRpcResponseAggregate();
 
-        foreach ($requests->getAll() as $request) {
+            foreach ($input->getRequest()->getAll() as $request) {
+                $responseAggregate->addResponse(
+                    $this->handler->handle($request)
+                );
+            }
+        } catch (JsonRpcException $exception) {
             $responseAggregate->addResponse(
-                $this->handler->handle($request)
+                $this->handler->handleError($exception)
             );
         }
 
