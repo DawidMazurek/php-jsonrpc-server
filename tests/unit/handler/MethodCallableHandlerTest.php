@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace DawidMazurek\JsonRpc\handler;
 
+use DawidMazurek\JsonRpc\exception\ParseError;
 use DawidMazurek\JsonRpc\request\JsonRpcRequest;
 use DawidMazurek\JsonRpc\request\Notification;
 use DawidMazurek\JsonRpc\request\Request;
@@ -96,5 +97,17 @@ class MethodCallableHandlerTest extends TestCase
         $handler = new MethodCallableHandler();
         $response = $handler->handle($request);
         $this->assertInstanceOf(NotificationResponse::class, $response);
+    }
+
+    /**
+     * @test
+     */
+    public function returnsFailedResponseWhenHandlingError()
+    {
+        $exception = new ParseError();
+
+        $handler = new MethodCallableHandler();
+        $response = $handler->handleError($exception);
+        $this->assertInstanceOf(FailedResponse::class, $response);
     }
 }

@@ -31,6 +31,6 @@ $server = new JsonRpcServer(
     new JsonRpcRequestBuilder(new JsonSerializer())
 );
 
-$response = $server->run($input->getRequest());
+$response = $server->run($input);
 
 echo json_encode($response->serialize());
