@@ -8,8 +8,8 @@ use DawidMazurek\JsonRpc\error\JsonRpcErrorCodes;
 
 class MethodNotFound extends JsonRpcException
 {
-    public function __construct()
+    public function __construct(string $message = '')
     {
-        parent::__construct("Method not found", JsonRpcErrorCodes::METHOD_NOT_FOUND);
+        parent::__construct("Method not found: " . $message, JsonRpcErrorCodes::METHOD_NOT_FOUND);
     }
 }

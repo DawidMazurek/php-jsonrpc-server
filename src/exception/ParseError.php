@@ -8,8 +8,8 @@ use DawidMazurek\JsonRpc\error\JsonRpcErrorCodes;
 
 class ParseError extends JsonRpcException
 {
-    public function __construct()
+    public function __construct(string $message = '')
     {
-        parent::__construct("Parse error", JsonRpcErrorCodes::PARSE_ERROR);
+        parent::__construct("Parse error:" .$message , JsonRpcErrorCodes::PARSE_ERROR);
     }
 }

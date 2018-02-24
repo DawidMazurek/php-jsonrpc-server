@@ -8,8 +8,8 @@ use DawidMazurek\JsonRpc\error\JsonRpcErrorCodes;
 
 class InvalidRequest extends JsonRpcException
 {
-    public function __construct()
+    public function __construct(string $message = '')
     {
-        parent::__construct("Invalid request", JsonRpcErrorCodes::INVALID_REQUEST);
+        parent::__construct("Invalid request: " . $message, JsonRpcErrorCodes::INVALID_REQUEST);
     }
 }

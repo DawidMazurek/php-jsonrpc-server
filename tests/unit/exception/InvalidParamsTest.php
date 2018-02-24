@@ -14,8 +14,8 @@ class InvalidParamsTest extends TestCase
      */
     public function givesCorrectErrorInfo()
     {
-        $exception = new InvalidParams();
+        $exception = new InvalidParams('Missing param id');
         $this->assertEquals(JsonRpcErrorCodes::INVALID_PARAMS, $exception->getCode());
-        $this->assertEquals('Invalid params', $exception->getMessage());
+        $this->assertEquals('Invalid params: Missing param id', $exception->getMessage());
     }
 }

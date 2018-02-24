@@ -14,8 +14,8 @@ class InvalidRequestTest extends TestCase
      */
     public function givesCorrectErrorInfo()
     {
-        $exception = new InvalidRequest();
+        $exception = new InvalidRequest('Request');
         $this->assertEquals(JsonRpcErrorCodes::INVALID_REQUEST, $exception->getCode());
-        $this->assertEquals('Invalid request', $exception->getMessage());
+        $this->assertEquals('Invalid request: Request', $exception->getMessage());
     }
 }
