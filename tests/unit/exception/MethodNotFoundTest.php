@@ -14,8 +14,8 @@ class MethodNotFoundTest extends TestCase
      */
     public function givesCorrectErrorInfo()
     {
-        $exception = new MethodNotFound();
+        $exception = new MethodNotFound('sampleMethod');
         $this->assertEquals(JsonRpcErrorCodes::METHOD_NOT_FOUND, $exception->getCode());
-        $this->assertEquals('Method not found', $exception->getMessage());
+        $this->assertEquals('Method not found: sampleMethod', $exception->getMessage());
     }
 }

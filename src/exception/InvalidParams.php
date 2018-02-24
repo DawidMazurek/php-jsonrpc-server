@@ -8,8 +8,8 @@ use DawidMazurek\JsonRpc\error\JsonRpcErrorCodes;
 
 class InvalidParams extends JsonRpcException
 {
-    public function __construct()
+    public function __construct(string $message = '')
     {
-        parent::__construct("Invalid params", JsonRpcErrorCodes::INVALID_PARAMS);
+        parent::__construct("Invalid params: " . $message , JsonRpcErrorCodes::INVALID_PARAMS);
     }
 }
