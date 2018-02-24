@@ -65,7 +65,7 @@ class JsonRpcRequestBuilder
             );
         }
 
-        return $request = new Notification(
+        return new Notification(
             $data['jsonrpc'],
             $data['method'],
             $data['params']
