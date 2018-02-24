@@ -16,6 +16,6 @@ class ParseErrorTest extends TestCase
     {
         $exception = new ParseError('Received empty body');
         $this->assertEquals(JsonRpcErrorCodes::PARSE_ERROR, $exception->getCode());
-        $this->assertEquals('parseError: Received empty body', $exception->getMessage());
+        $this->assertEquals('Parse error: Received empty body', $exception->getMessage());
     }
 }
