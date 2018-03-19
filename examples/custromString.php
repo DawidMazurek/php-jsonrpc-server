@@ -12,8 +12,6 @@ use DawidMazurek\JsonRpc\server\JsonRpcServer;
 include __DIR__ . '/../vendor/autoload.php';
 $requestBuilder = new JsonRpcRequestBuilder(new JsonSerializer());
 
-$input = new InputStream($requestBuilder);
-
 $input = new CustomStringInput(
     '[{"jsonrpc":"2.0", "method": "sampleMethod", "params":[], "id":1}, {"jsonrpc":"2.0", "method": "sampleMethod", "params":[]}]',
     $requestBuilder
@@ -27,10 +25,10 @@ $handler = new MethodCallableHandler();
 $handler->registerForMethod('sampleMethod', $sampleHandler);
 
 $server = new JsonRpcServer(
-    $handler,
-    new JsonRpcRequestBuilder(new JsonSerializer())
+    $handler
 );
 
 $response = $server->run($input);
 
-echo json_encode($response->serialize());
+header('ContentType: application/json');
+echo $response->serialize();
