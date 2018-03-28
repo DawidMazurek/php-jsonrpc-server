@@ -3,10 +3,10 @@
 declare(strict_types=1);
 
 use DawidMazurek\JsonRpc\handler\MethodCallableHandler;
-use DawidMazurek\JsonRpc\io\InputStream;
-use DawidMazurek\JsonRpc\io\JsonSerializer;
-use DawidMazurek\JsonRpc\request\JsonRpcRequestBuilder;
-use DawidMazurek\JsonRpc\server\JsonRpcServer;
+use DawidMazurek\JsonRpc\IO\InputStream;
+use DawidMazurek\JsonRpc\IO\JsonSerializer;
+use DawidMazurek\JsonRpc\Request\JsonRpcRequestBuilder;
+use DawidMazurek\JsonRpc\Server\JsonRpcServer;
 
 include __DIR__ . '/../vendor/autoload.php';
 $requestBuilder = new JsonRpcRequestBuilder(new JsonSerializer());

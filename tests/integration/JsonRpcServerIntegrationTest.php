@@ -2,12 +2,12 @@
 
 declare(strict_types = 1);
 
-use DawidMazurek\JsonRpc\handler\MethodCallableHandler;
-use DawidMazurek\JsonRpc\io\CustomStringInput;
-use DawidMazurek\JsonRpc\io\JsonSerializer;
-use DawidMazurek\JsonRpc\request\JsonRpcRequestBuilder;
-use DawidMazurek\JsonRpc\response\JsonRpcResponseAggregate;
-use DawidMazurek\JsonRpc\server\JsonRpcServer;
+use DawidMazurek\JsonRpc\Handler\MethodCallableHandler;
+use DawidMazurek\JsonRpc\IO\CustomStringInput;
+use DawidMazurek\JsonRpc\IO\JsonSerializer;
+use DawidMazurek\JsonRpc\Request\JsonRpcRequestBuilder;
+use DawidMazurek\JsonRpc\Response\JsonRpcResponseAggregate;
+use DawidMazurek\JsonRpc\Server\JsonRpcServer;
 use PHPUnit\Framework\TestCase;
 
 class JsonRpcServerIntegrationTest extends TestCase
